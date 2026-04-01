@@ -9,21 +9,21 @@
   <meta name="robots" content="index, follow" />
   
   <!-- Canonical URL (Update this when your custom domain is ready) -->
-  <link rel="canonical" href="https://beyondpotential.creatorops.site/" />
+  <link rel="canonical" href="https://beyondpotential.vercel.app/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://beyondpotential.creatorops.site/" />
+  <meta property="og:url" content="https://beyondpotential.vercel.app/" />
   <meta property="og:title" content="Beyond Potential — The Book by Patane Joshua V." />
   <meta property="og:description" content="The book that exposes the secret wealth pathways young people were never taught. 8 actionable chapters. Stop living below your capacity." />
-  <meta property="og:image" content="https://beyondpotential.creatorops.site/cover.jpg" />
+  <meta property="og:image" content="https://beyondpotential.vercel.app/cover.jpg" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://beyondpotential.creatorops.site/" />
+  <meta property="twitter:url" content="https://beyondpotential.vercel.app/" />
   <meta property="twitter:title" content="Beyond Potential — The Book by Patane Joshua V." />
   <meta property="twitter:description" content="The book that exposes the secret wealth pathways young people were never taught. 8 actionable chapters. Stop living below your capacity." />
-  <meta property="twitter:image" content="https://beyondpotential.creatorops.site/cover.jpg" />
+  <meta property="twitter:image" content="https://beyondpotential.vercel.app/cover.jpg" />
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -35,8 +35,8 @@
       "@type": "Person",
       "name": "Patane Joshua V."
     },
-    "url": "https://beyondpotential.creatorops.site/",
-    "image": "https://beyondpotential.creatorops.site/cover.jpg",
+    "url": "https://beyondpotential.vercel.app/",
+    "image": "https://beyondpotential.vercel.app/cover.jpg",
     "description": "The book that exposes the secret wealth pathways young people were never taught. 8 actionable chapters. Stop living below your capacity.",
     "offers": {
       "@type": "Offer",
@@ -144,12 +144,6 @@
     .book-cover { width: 100%; aspect-ratio: 6/9; background: #fff; border: 1px solid var(--gold-dim); position: relative; overflow: hidden; }
     .cover-real-img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .book-spine { position: absolute; left: -14px; top: 0; bottom: 0; width: 14px; background: linear-gradient(to right, #1a1200, #3a2a00); border: 1px solid var(--gold-dim); border-right: none; transform: perspective(900px) rotateY(75deg); transform-origin: right; }
-
-    /* ── DEV PREVIEW BTN ── */
-    .dev-preview-bar { position: fixed; bottom: 20px; right: 20px; z-index: 200; }
-    .dev-preview-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; background: rgba(20,20,20,0.92); border: 1px solid var(--gold-dim); color: var(--gold-lt); font-family: var(--sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(10px); transition: border-color 0.2s, background 0.2s; }
-    .dev-preview-btn:hover { border-color: var(--gold-lt); background: rgba(30,20,0,0.95); }
-    .dev-tag { font-size: 0.55rem; background: var(--gold-dim); color: var(--black); padding: 2px 6px; letter-spacing: 0.12em; font-weight: 700; }
 
     /* ══ STATS BAND ══ */
     #stats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 0; }
@@ -582,14 +576,6 @@
       <div class="footer-powered">Powered by <a href="https://creatorops.site" target="_blank" rel="noopener">CreatorOps AI</a></div>
     </div>
   </footer>
-
-  <!-- ── DEV DASHBOARD PREVIEW ── -->
-  <div class="dev-preview-bar" id="devBar">
-    <button class="dev-preview-btn" onclick="previewDashboard()">
-      <span class="dev-tag">DEV</span> Preview Dashboard
-    </button>
-  </div>
-
   <!-- ══ PAYMENT MODAL ══ -->
   <div class="modal-overlay" id="payModal">
     <div class="modal-box">
@@ -623,12 +609,6 @@
       });
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
-
-    // ── Dev dashboard preview
-    function previewDashboard() {
-      showDashboard('preview@beyondpotential.dev');
-      document.getElementById('devBar').style.display = 'none';
-    }
 
     // ── Payment Modal
     function openPayModal() {
