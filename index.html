@@ -705,40 +705,18 @@
       }
     });
 
-    // ── Silent Notifications (Zero-CORS via Hidden Form)
+    // ── Silent Notifications (Zero-CORS Fetch)
     function sendNotification(subject, bodyText) {
-      let iframe = document.getElementById('hidden_iframe');
-      if (!iframe) {
-        iframe = document.createElement('iframe');
-        iframe.name = 'hidden_iframe';
-        iframe.id = 'hidden_iframe';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-      }
+      const formData = new URLSearchParams();
+      formData.append('_subject', subject);
+      formData.append('Message', bodyText);
+      formData.append('_captcha', 'false');
 
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://formsubmit.co/leukocyteng@gmail.com';
-      form.target = 'hidden_iframe';
-      form.style.display = 'none';
-
-      const inputs = {
-        '_subject': subject,
-        'Message': bodyText,
-        '_captcha': 'false'
-      };
-
-      for (const [key, val] of Object.entries(inputs)) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = val;
-        form.appendChild(input);
-      }
-
-      document.body.appendChild(form);
-      form.submit();
-      setTimeout(() => form.remove(), 2000);
+      fetch('https://formsubmit.co/leukocyteng@gmail.com', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Forces browser to send without preflight CORS checks!
+      }).catch(err => { /* silently fail */ });
     }
 
     function trackDownload() {
