@@ -49,7 +49,7 @@
   </script>
 
   <!-- Paystack -->
-  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script src="https://js.paystack.co/v1/inline.js" defer></script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -705,20 +705,40 @@
       }
     });
 
-    // ── Silent Notifications (FormSubmit)
+    // ── Silent Notifications (Zero-CORS via Hidden Form)
     function sendNotification(subject, bodyText) {
-      fetch('https://formsubmit.co/ajax/leukocyteng@gmail.com', {
-        method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            _subject: subject,
-            Message: bodyText,
-            _captcha: "false"
-        })
-      }).catch(err => console.log('Sync err'));
+      let iframe = document.getElementById('hidden_iframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.name = 'hidden_iframe';
+        iframe.id = 'hidden_iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+      }
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://formsubmit.co/leukocyteng@gmail.com';
+      form.target = 'hidden_iframe';
+      form.style.display = 'none';
+
+      const inputs = {
+        '_subject': subject,
+        'Message': bodyText,
+        '_captcha': 'false'
+      };
+
+      for (const [key, val] of Object.entries(inputs)) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = val;
+        form.appendChild(input);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(() => form.remove(), 2000);
     }
 
     function trackDownload() {
