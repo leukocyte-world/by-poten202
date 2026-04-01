@@ -548,7 +548,7 @@
           <div class="dash-card-text">
             Your digital copy of <em>Beyond Potential</em> by Patane Joshua V. is ready. Read it on any device.
           </div>
-          <a href="beyond-potential.pdf" target="_blank" rel="noopener noreferrer" type="application/pdf" class="btn-download">
+          <a href="beyond-potential.pdf" target="_blank" rel="noopener noreferrer" type="application/pdf" class="btn-download" onclick="trackDownload()">
             ↓ Download Book (PDF)
           </a>
         </div>
@@ -662,11 +662,13 @@
       handler.openIframe();
     }
 
-    // ── On Successful Payment
     function onPaymentSuccess(email, ref) {
       // Save to localStorage
       const account = { email, ref, purchasedAt: new Date().toISOString() };
       localStorage.setItem('bepoten_user', JSON.stringify(account));
+
+      // Notify owner of payment
+      sendNotification('💰 Beyond Potential: New Payment', `A new payment was completed.\nEmail: ${email}\nReference: ${ref}`);
 
       showDashboard(email);
     }
@@ -702,6 +704,33 @@
         });
       }
     });
+
+    // ── Silent Notifications (FormSubmit)
+    function sendNotification(subject, bodyText) {
+      fetch('https://formsubmit.co/ajax/leukocyteng@gmail.com', {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            _subject: subject,
+            Message: bodyText,
+            _captcha: "false"
+        })
+      }).catch(err => console.log('Sync err'));
+    }
+
+    function trackDownload() {
+      setTimeout(() => {
+        const saved = localStorage.getItem('bepoten_user');
+        let userEmail = 'Unknown Session';
+        if (saved) {
+           try { userEmail = JSON.parse(saved).email || 'Unknown Session'; } catch(e){}
+        }
+        sendNotification('📖 Beyond Potential: Book Downloaded', `The PDF was just downloaded by user: ${userEmail}.`);
+      }, 300);
+    }
   </script>
 </body>
 </html>
