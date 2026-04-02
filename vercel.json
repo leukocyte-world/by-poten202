@@ -40,18 +40,14 @@
       ]
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/beyond-potential\\.pdf",
-      "status": 403,
-      "headers": { "Content-Type": "text/plain" },
-      "dest": "/404.html"
+      "source": "/beyond-potential.pdf",
+      "destination": "/404.html"
     },
     {
-      "src": "/(.*\\.pdf)",
-      "status": 403,
-      "headers": { "Content-Type": "text/plain" },
-      "dest": "/404.html"
+      "source": "/(.*).pdf",
+      "destination": "/404.html"
     }
   ]
 }

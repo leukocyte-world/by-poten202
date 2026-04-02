@@ -949,6 +949,7 @@
       let toastIndex = 0;
 
       function showToast() {
+        if (!toastContainer) return;
         const data = toastData[toastIndex % toastData.length];
         toastIndex++;
         const el = document.createElement('div');
@@ -969,7 +970,20 @@
         }, 4500);
       }
 
-      setTimeout(() => { showToast(); setInterval(showToast, 7000); }, 3000);
+      function scheduleNextToast() {
+        // Honest intervals: 15 to 35 seconds between toasts
+        const nextDelay = 15000 + Math.random() * 20000;
+        setTimeout(() => {
+          showToast();
+          scheduleNextToast();
+        }, nextDelay);
+      }
+
+      // Initial delay of 8s before the first notification
+      setTimeout(() => { 
+        showToast(); 
+        scheduleNextToast(); 
+      }, 8000);
 
     })();
   </script>
