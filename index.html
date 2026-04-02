@@ -116,14 +116,15 @@
   </script>
 
 
-  <!-- Performance Preloads -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- LCP Image Preload (Hero cover — above the fold) -->
+  <link rel="preload" as="image" href="cover.jpg" fetchpriority="high" />
+
+  <!-- Non-blocking Google Fonts (async load to eliminate render-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="https://js.paystack.co" />
-  <link rel="preload" as="image" href="cover.jpg" />
-  
-  <!-- Optimized Fonts (Only essential weights) -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" /></noscript>
 
   <style>
     :root {
@@ -170,8 +171,8 @@
     .italic { font-style: italic; }
 
     /* ── SCROLL REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
-    .reveal.visible { opacity: 1; transform: none; }
+    .reveal { opacity: 0; transform: translateY(36px); will-change: opacity, transform; transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.visible { opacity: 1; transform: none; will-change: auto; }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.32s; }
@@ -431,7 +432,7 @@
           <div class="book-3d">
             <div class="book-spine"></div>
             <div class="book-cover">
-              <img class="cover-real-img" src="cover.jpg" alt="Beyond Potential — Book Cover by Patane Joshua V." decoding="async" />
+              <img class="cover-real-img" src="cover.jpg" alt="Beyond Potential — Book Cover by Patane Joshua V." fetchpriority="high" loading="eager" decoding="async" width="260" height="390" />
             </div>
           </div>
         </div>
@@ -818,6 +819,8 @@
         payModal.classList.add('active');
         document.body.style.overflow = 'hidden';
         setTimeout(() => payNameInput.focus(), 300);
+        // Pre-warm Paystack in background so it's ready when user clicks Pay
+        if (!window._paystackLoaded) loadPaystackThen(() => {});
       };
       window.closePayModal = () => {
         payModal.classList.remove('active');
@@ -865,22 +868,24 @@
         if (!valid) return;
 
         closePayModal();
-        const handler = PaystackPop.setup({
-          key:      'pk_live_a269d1806c1309e0e578e90708fd99113ec6c62f',
-          email:    email,
-          amount:   1000000,
-          currency: 'NGN',
-          ref:      'BP_' + Math.floor(Math.random() * 1e9),
-          metadata: {
-            custom_fields: [
-              { display_name: 'Full Name',         variable_name: 'full_name', value: name },
-              { display_name: 'Delivery Address',  variable_name: 'address',   value: addr }
-            ]
-          },
-          callback: (res) => onPaymentSuccess(name, email, addr, res.reference),
-          onClose:  () => {}
+        loadPaystackThen(() => {
+          const handler = PaystackPop.setup({
+            key:      'pk_live_a269d1806c1309e0e578e90708fd99113ec6c62f',
+            email:    email,
+            amount:   1000000,
+            currency: 'NGN',
+            ref:      'BP_' + Math.floor(Math.random() * 1e9),
+            metadata: {
+              custom_fields: [
+                { display_name: 'Full Name',         variable_name: 'full_name', value: name },
+                { display_name: 'Delivery Address',  variable_name: 'address',   value: addr }
+              ]
+            },
+            callback: (res) => onPaymentSuccess(name, email, addr, res.reference),
+            onClose:  () => {}
+          });
+          handler.openIframe();
         });
-        handler.openIframe();
       }
 
       function onPaymentSuccess(name, email, address, ref) {
@@ -969,7 +974,23 @@
     })();
   </script>
   
-  <!-- Paystack Loaded at the absolute bottom for Max Site Speed -->
-  <script src="https://js.paystack.co/v1/inline.js" defer></script>
+  <!-- Paystack: lazy-loaded only when user opens pay modal (saves ~80KB on initial load) -->
+  <script>
+    window._paystackLoaded = false;
+    window._paystackQueue = null;
+    window.loadPaystackThen = function(cb) {
+      if (window._paystackLoaded) { cb(); return; }
+      if (window._paystackQueue) { window._paystackQueue.push(cb); return; }
+      window._paystackQueue = [cb];
+      var s = document.createElement('script');
+      s.src = 'https://js.paystack.co/v1/inline.js';
+      s.onload = function() {
+        window._paystackLoaded = true;
+        window._paystackQueue.forEach(function(fn) { fn(); });
+        window._paystackQueue = null;
+      };
+      document.head.appendChild(s);
+    };
+  </script>
 </body>
 </html>
