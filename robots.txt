@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /beyond-potential.pdf
+Disallow: /*.pdf$
+
+Sitemap: https://beyondpotential.vercel.app/sitemap.xml

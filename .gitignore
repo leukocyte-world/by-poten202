@@ -1,3 +1,6 @@
 node_modules/
 .env
 .DS_Store
+
+# Book PDF — never expose publicly via deployment
+beyond-potential.pdf
