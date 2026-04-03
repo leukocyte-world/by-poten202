@@ -972,8 +972,7 @@
       }
 
       function scheduleNextToast() {
-        // Honest intervals: 15 to 35 seconds between toasts
-        const nextDelay = 15000 + Math.random() * 20000;
+        const nextDelay = 300000; // Intervals of 5 minutes
         setTimeout(() => {
           showToast();
           scheduleNextToast();
@@ -984,7 +983,7 @@
       setTimeout(() => { 
         showToast(); 
         scheduleNextToast(); 
-      }, 8000);
+      }, 300000);
 
     })();
   </script>
