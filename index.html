@@ -207,15 +207,112 @@
     .btn-ghost { display: inline-block; padding: 14px 28px; border: 1px solid var(--border); color: var(--ivory-dim); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: border-color 0.25s, color 0.25s; }
     .btn-ghost:hover { border-color: var(--gold-dim); color: var(--gold-lt); }
 
-    /* ── BOOK COVER ── */
-    .book-wrap { position: relative; display: flex; justify-content: center; align-items: center; }
-    .book-glow { position: absolute; width: 360px; height: 360px; background: radial-gradient(circle, rgba(201,146,42,0.22) 0%, transparent 70%); border-radius: 50%; animation: pulse 4s ease-in-out infinite; }
-    @keyframes pulse { 0%,100% { opacity:0.6; transform:scale(1); } 50% { opacity:1; transform:scale(1.08); } }
-    .book-3d { position: relative; width: 260px; transform: perspective(900px) rotateY(-18deg); transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8)); z-index: 2; }
-    .book-3d:hover { transform: perspective(900px) rotateY(-6deg) translateY(-8px); }
-    .book-cover { width: 100%; aspect-ratio: 6/9; background: #fff; border: 1px solid var(--gold-dim); position: relative; overflow: hidden; transform: translateZ(1px); }
-    .cover-real-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .book-spine { position: absolute; left: -14px; top: 0; bottom: 0; width: 14px; background: linear-gradient(to right, #1a1200, #3a2a00); border: 1px solid var(--gold-dim); border-right: none; transform: perspective(900px) rotateY(75deg); transform-origin: right; }
+    /* ── BOOK 3D MOCKUP ── */
+    .book-container { 
+      perspective: 1200px; 
+      margin: 0 auto; 
+      width: fit-content; 
+      z-index: 2; 
+    }
+    .book { 
+      position: relative; 
+      width: 260px; 
+      height: 390px; 
+      transform-style: preserve-3d; 
+      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); 
+      /* Stand straight default */
+      transform: rotateY(0deg); 
+    }
+    .book:hover { 
+      transform: rotateY(-25deg) rotateX(10deg); 
+    }
+    
+    .book-side { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: var(--gold-dim); 
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.5); 
+    }
+    
+    .book-front { 
+      transform: translateZ(15px); 
+      z-index: 2; 
+      background: #fff;
+    }
+    .book-front img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      display: block; 
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
+    }
+    
+    .book-back { 
+      transform: translateZ(-15px) rotateY(180deg); 
+      background: var(--gold-dim); /* Until back-cover.png is added */
+    }
+    
+    .book-spine { 
+      width: 30px; 
+      left: -15px; 
+      transform: rotateY(-90deg); 
+      background: linear-gradient(to right, #1a1200, #3a2a00); 
+      border: 1px solid var(--gold-dim);
+    }
+    
+    .book-right { 
+      width: 30px; 
+      right: -15px; 
+      left: auto; 
+      transform: rotateY(90deg); 
+      background: linear-gradient(to right, #ddd, #fff 10%, #fff 90%, #ddd); 
+      /* Simulate page lines with a small pattern */
+      background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px);
+    }
+    
+    .book-top { 
+      height: 30px; 
+      top: -15px; 
+      transform: rotateX(90deg); 
+      background: #f0f0f0; 
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px);
+    }
+    .book-bottom { 
+      height: 30px; 
+      bottom: -15px; 
+      top: auto; 
+      transform: rotateX(-90deg); 
+      background: #f0f0f0;
+    }
+
+    .book-glow { 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%); 
+      width: 400px; 
+      height: 400px; 
+      background: radial-gradient(circle, rgba(201,146,42,0.15) 0%, transparent 70%); 
+      border-radius: 50%; 
+      z-index: 1; 
+      pointer-events: none;
+    }
+
+    /* ── BOOK GLOW/SHADOW ── */
+    .book-3d-shadow { 
+      position: absolute; 
+      top: 100%; 
+      left: 50%; 
+      transform: translateX(-50%) rotateX(90deg); 
+      width: 90%; 
+      height: 40px; 
+      background: rgba(0,0,0,0.4); 
+      filter: blur(20px); 
+      border-radius: 50%; 
+    }
 
     /* ══ STATS BAND ══ */
     #stats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 0; }
@@ -427,14 +524,19 @@
           </div>
         </div>
 
-        <!-- Right — Book Cover -->
-        <div class="book-wrap reveal reveal-delay-2">
+        <!-- Right — 3D Book Mockup -->
+        <div class="book-container reveal reveal-delay-2">
           <div class="book-glow"></div>
-          <div class="book-3d">
-            <div class="book-spine"></div>
-            <div class="book-cover">
-              <img class="cover-real-img" src="cover.png" alt="Beyond Potential — Book Cover by Patane Joshua V." fetchpriority="high" loading="eager" decoding="async" width="260" height="390" />
+          <div class="book">
+            <div class="book-side book-front">
+              <img src="cover.png" alt="Beyond Potential — Book Cover by Patane Joshua V." fetchpriority="high" loading="eager" />
             </div>
+            <div class="book-side book-back"></div>
+            <div class="book-side book-spine"></div>
+            <div class="book-side book-right"></div>
+            <div class="book-side book-top"></div>
+            <div class="book-side book-bottom"></div>
+            <div class="book-3d-shadow"></div>
           </div>
         </div>
 
