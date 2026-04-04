@@ -217,14 +217,13 @@
     .book { 
       position: relative; 
       width: 260px; 
-      height: 390px; 
+      height: 380px; 
       transform-style: preserve-3d; 
-      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); 
-      /* Stand straight default */
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); 
       transform: rotateY(0deg); 
     }
-    .book:hover { 
-      transform: rotateY(-25deg) rotateX(10deg); 
+    .book-container:hover .book { 
+      transform: rotateY(-36deg) rotateX(8deg); 
     }
     
     .book-side { 
@@ -233,59 +232,58 @@
       left: 0; 
       width: 100%; 
       height: 100%; 
-      background: var(--gold-dim); 
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.5); 
+      background: #b68523; /* Consistent gold texture base */
+      box-shadow: inset 0 0 25px rgba(0,0,0,0.4); 
+      backface-visibility: hidden;
     }
     
     .book-front { 
-      transform: translateZ(15px); 
+      transform: translateZ(20px); 
       z-index: 2; 
-      background: #fff;
     }
     .book-front img { 
       width: 100%; 
       height: 100%; 
       object-fit: cover; 
       display: block; 
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2); 
     }
     
     .book-back { 
-      transform: translateZ(-15px) rotateY(180deg); 
-      background: var(--gold-dim); /* Until back-cover.png is added */
+      transform: translateZ(-20px) rotateY(180deg); 
+      background: #9d731e;
     }
     
     .book-spine { 
-      width: 30px; 
-      left: -15px; 
+      width: 40px; 
+      left: -20px; 
       transform: rotateY(-90deg); 
-      background: linear-gradient(to right, #1a1200, #3a2a00); 
-      border: 1px solid var(--gold-dim);
+      background: linear-gradient(to right, #6a4c14, #b68523 25%, #b68523 75%, #6a4c14); 
+      border-radius: 4px 0 0 4px; /* Rounded spine effect */
     }
     
     .book-right { 
-      width: 30px; 
-      right: -15px; 
+      width: 40px; 
+      right: -20px; 
       left: auto; 
       transform: rotateY(90deg); 
-      background: linear-gradient(to right, #ddd, #fff 10%, #fff 90%, #ddd); 
-      /* Simulate page lines with a small pattern */
-      background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px);
+      background: #ffffff;
+      background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px);
     }
     
     .book-top { 
-      height: 30px; 
-      top: -15px; 
+      height: 40px; 
+      top: -20px; 
       transform: rotateX(90deg); 
-      background: #f0f0f0; 
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px);
+      background: #eeeeee;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px);
     }
     .book-bottom { 
-      height: 30px; 
-      bottom: -15px; 
+      height: 40px; 
+      bottom: -20px; 
       top: auto; 
       transform: rotateX(-90deg); 
-      background: #f0f0f0;
+      background: #eeeeee;
     }
 
     .book-glow { 
