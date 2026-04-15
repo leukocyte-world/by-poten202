@@ -542,7 +542,7 @@
   <nav id="navbar">
     <div class="container inner">
       <a class="nav-logo" href="#hero">Beyond<span>Potential</span></a>
-      <button class="nav-cta" id="navBuyBtn">Get the Book</button>
+      <button class="nav-cta" id="navBuyBtn" onclick="ttq.track('AddToCart', { content_name: 'Beyond Potential Book' })">Get the Book</button>
     </div>
   </nav>
 
@@ -803,7 +803,7 @@
       <div class="dash-header">
         <div class="section-label" style="justify-content:center;">Order Confirmed</div>
         <h2 class="dash-title">Thank you, <em id="dashName">Reader.</em></h2>
-        <p class="dash-sub">Your hard copy order has been received. We’ll deliver it straight to your address within 3–5 business days.</p>
+        <p class="dash-sub">Your order has been received. You can download your PDF below.</p>
       </div>
 
       <div class="dash-user-bar">
@@ -912,9 +912,9 @@
   <div class="modal-overlay" id="payModal">
     <div class="modal-box">
       <button class="modal-close" id="closeModalBtn" aria-label="Close">&times;</button>
-      <div class="modal-badge">📦 Hard Copy Order</div>
-      <div class="modal-title">Claim your copy.</div>
-      <p class="modal-sub">Fill in your details below. After payment, your physical book will be delivered to your address within 3–5 business days.</p>
+      <div class="modal-badge">📥 Instant Access</div>
+      <div class="modal-title">Get the Book.</div>
+      <p class="modal-sub">Fill in your details below. After payment, you will receive instant access to the PDF version of the book.</p>
 
       <label class="modal-label" for="payFullName">Full Name</label>
       <input class="modal-input" type="text" id="payFullName" placeholder="e.g. Chukwuemeka Obi" autocomplete="name" />
@@ -929,7 +929,7 @@
       <textarea class="modal-input" id="payAddress" rows="3" placeholder="House no., Street, City, State" autocomplete="street-address"></textarea>
 
       <div class="modal-shipping-info">
-        📦 <strong>Delivery within 3–5 business days</strong> across Nigeria. Your copy will be shipped to the address provided above after payment is confirmed.
+        📥 <strong>Instant PDF Access</strong>. You will receive an immediate download link to the digital book after payment is confirmed.
       </div>
 
       <button class="btn-primary" id="modalPayBtn" style="width:100%; padding:16px; font-size:0.85rem;">
@@ -940,7 +940,7 @@
   </div>
 
   <!-- WA FLOAT -->
-  <a href="https://wa.me/2349132225442?text=Hello%20Joshua,%20I%20have%20a%20question%20about%20Beyond%20Potential" class="wa-float" target="_blank" rel="noopener noreferrer" onclick="ttq.track('Contact', { method: 'WhatsApp' })">
+  <a href="https://wa.me/2347050513753?text=Hello%20Joshua,%20I%20have%20a%20question%20about%20Beyond%20Potential" class="wa-float" target="_blank" rel="noopener noreferrer" onclick="ttq.track('Contact', { method: 'WhatsApp' })">
     <svg style="width: 32px; height: 32px;" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.082 20.843c-1.542-.001-3.047-.406-4.364-1.171l-4.843 1.271 1.293-4.724c-.841-1.349-1.284-2.909-1.283-4.521.003-4.685 3.824-8.497 8.524-8.496 4.697 0 8.52 3.818 8.521 8.514 0 4.694-3.824 8.513-8.52 8.512z"/>
     </svg>
@@ -1059,6 +1059,8 @@
       async function onPaymentSuccess(name, email, address, phone, ref) {
         ttq.track('CompletePayment', { content_name: 'Beyond Potential Book', value: 10000, currency: 'NGN' });
         localStorage.setItem('bepoten_user', JSON.stringify({ name, email, address, ref, t: Date.now() }));
+        
+        alert('Payment successful! Your physical copy will be sent to your address after a week.');
         
         // Notify backend to send email
         fetch('/api/notify', {
