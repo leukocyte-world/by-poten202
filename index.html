@@ -12,6 +12,19 @@
   <meta name="google-site-verification" content="firgQmnBBayEECyRE89eBbnbguRE2_vMnJaUybhFyg0" />
   <link rel="icon" type="image/png" href="favicon.png" />
   
+  <!-- TikTok Pixel Code Start -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  
+    ttq.load('D7FGSN3C77U4HQBM6QUG');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+
   <!-- Canonical URL -->
   <link rel="canonical" href="https://beyondpotential.vercel.app/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
@@ -485,6 +498,41 @@
       .modal-box { padding: 32px 20px; }
       .toast-container { left: 12px; right: 12px; bottom: 16px; }
       .toast { max-width: 100%; }
+      .book-container:hover .book { transform: none; } /* Simpler interaction on mobile */
+    }
+
+    /* ══ WHATSAPP FLOAT ══ */
+    .wa-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .wa-float:hover {
+      transform: scale(1.1);
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .wa-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+      }
     }
   </style>
 </head>
@@ -520,8 +568,8 @@
           </p>
 
           <div class="btn-group reveal reveal-delay-4">
-            <button class="btn-primary" id="heroBuyBtn"><span>Order Hard Copy — ₦10,000</span></button>
-            <a href="#chapters" class="btn-ghost">See What's Inside</a>
+            <button class="btn-primary" id="heroBuyBtn"><span>Buy Now — ₦10,000</span></button>
+            <a href="#chapters" class="btn-ghost" onclick="ttq.track('ViewContent', { content_name: 'Chapters Section' })">See What's Inside</a>
           </div>
         </div>
 
@@ -737,12 +785,12 @@
 
       <div class="reveal reveal-delay-4">
         <button class="btn-primary" id="buyBtn" style="font-size:0.9rem; padding:18px 52px;">
-          <span>Order Hard Copy — ₦10,000</span>
+          <span>Buy Now — ₦10,000</span>
         </button>
         <div style="margin-top: 20px;">
           <div class="coming-soon-notice">
-            <span class="cs-dot"></span>
-            <span><strong>Soft Copy (PDF / eBook)</strong> &mdash; Digital sales going live very soon. <a href="javascript:void(0)" onclick="openWaitlist()" style="color:var(--gold-lt); text-decoration:underline;">Notify Me &rarr;</a></span>
+            <span class="cs-dot" style="background:#25d366; animation:none;"></span>
+            <span><strong>Instant Access</strong> &mdash; PDF is sent immediately. Paperback arrives within a week.</span>
           </div>
         </div>
       </div>
@@ -782,14 +830,16 @@
         <!-- Coupon Card -->
         <div class="dash-card">
           <div class="dash-card-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold-lt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold-lt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
           </div>
-          <div class="dash-card-title">Your Exclusive Bonus</div>
+          <div class="dash-card-title">Download Your PDF</div>
           <div class="dash-card-text">
-            As a reader, you get <strong>1 month FREE</strong> on CreatorOps AI — the platform that helps you find your niche, generate SEO-optimized video titles, and build your YouTube automation journey.
+            For purchasing, you get instant access to the digital version of <em>Beyond Potential</em> while you wait for your hard copy delivery.
           </div>
-          <div class="coupon-box">BYPOTEN202</div>
-          <div class="coupon-desc">Use this code at <a href="https://creatorops.site" target="_blank" style="color:var(--gold);">creatorops.site</a> — 100% off for one month.</div>
+          <a id="downloadPdfBtn" href="#" class="btn-primary" style="width:100%; text-align:center; padding:14px; text-decoration:none; display:block; box-sizing:border-box;">
+            <span>Download PDF Now</span>
+          </a>
+          <div class="coupon-desc" style="margin-top: 12px;">The hard copy is still en route.</div>
         </div>
       </div>
     </div>
@@ -872,6 +922,9 @@
       <label class="modal-label" for="payEmail">Email Address</label>
       <input class="modal-input" type="email" id="payEmail" placeholder="you@example.com" autocomplete="email" />
 
+      <label class="modal-label" for="payPhone">Phone Number</label>
+      <input class="modal-input" type="tel" id="payPhone" placeholder="08012345678" autocomplete="tel" />
+
       <label class="modal-label" for="payAddress">Billing / Delivery Address</label>
       <textarea class="modal-input" id="payAddress" rows="3" placeholder="House no., Street, City, State" autocomplete="street-address"></textarea>
 
@@ -882,9 +935,16 @@
       <button class="btn-primary" id="modalPayBtn" style="width:100%; padding:16px; font-size:0.85rem;">
         <span>Proceed to Payment — ₦10,000</span>
       </button>
-      <p class="modal-note">🔒 Secure payment via Paystack. Hard copy delivered to your door.</p>
+      <p class="modal-note">🔒 Secure payment via Paystack. PDF immediately available.</p>
     </div>
   </div>
+
+  <!-- WA FLOAT -->
+  <a href="https://wa.me/2349132225442?text=Hello%20Joshua,%20I%20have%20a%20question%20about%20Beyond%20Potential" class="wa-float" target="_blank" rel="noopener noreferrer" onclick="ttq.track('Contact', { method: 'WhatsApp' })">
+    <svg style="width: 32px; height: 32px;" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.082 20.843c-1.542-.001-3.047-.406-4.364-1.171l-4.843 1.271 1.293-4.724c-.841-1.349-1.284-2.909-1.283-4.521.003-4.685 3.824-8.497 8.524-8.496 4.697 0 8.52 3.818 8.521 8.514 0 4.694-3.824 8.513-8.52 8.512z"/>
+    </svg>
+  </a>
 
   <!-- ══ WAITLIST MODAL ══ -->
   <div class="modal-overlay" id="waitlistModal">
@@ -908,6 +968,7 @@
       const waitlistModal = document.getElementById('waitlistModal');
       const payNameInput  = document.getElementById('payFullName');
       const payEmailInput = document.getElementById('payEmail');
+      const payPhoneInput = document.getElementById('payPhone');
       const payAddrInput  = document.getElementById('payAddress');
       const waitEmailInput= document.getElementById('waitEmail');
       const dash          = document.getElementById('dashboard');
@@ -920,6 +981,7 @@
 
       // Modals
       window.openPayModal = () => {
+        ttq.track('AddToCart', { content_name: 'Beyond Potential Book' });
         payModal.classList.add('active');
         document.body.style.overflow = 'hidden';
         setTimeout(() => payNameInput.focus(), 300);
@@ -964,6 +1026,7 @@
         const name  = payNameInput.value.trim();
         const email = payEmailInput.value.trim();
         const addr  = payAddrInput.value.trim();
+        const phone = payPhoneInput ? payPhoneInput.value.trim() : '';
         let valid = true;
         markError(payNameInput,  !name);  if (!name)  { payNameInput.focus();  valid = false; }
         markError(payEmailInput, !email || !email.includes('@'));
@@ -982,27 +1045,41 @@
             metadata: {
               custom_fields: [
                 { display_name: 'Full Name',         variable_name: 'full_name', value: name },
+                { display_name: 'Phone Number',      variable_name: 'phone',     value: phone },
                 { display_name: 'Delivery Address',  variable_name: 'address',   value: addr }
               ]
             },
-            callback: (res) => onPaymentSuccess(name, email, addr, res.reference),
+            callback: (res) => onPaymentSuccess(name, email, addr, phone, res.reference),
             onClose:  () => {}
           });
           handler.openIframe();
         });
       }
 
-      function onPaymentSuccess(name, email, address, ref) {
+      async function onPaymentSuccess(name, email, address, phone, ref) {
+        ttq.track('CompletePayment', { content_name: 'Beyond Potential Book', value: 10000, currency: 'NGN' });
         localStorage.setItem('bepoten_user', JSON.stringify({ name, email, address, ref, t: Date.now() }));
-        showDashboard(name, email, address);
+        
+        // Notify backend to send email
+        fetch('/api/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, address, reference: ref })
+        }).catch(err => console.error('Notify Failed', err));
+
+        showDashboard(name, email, address, ref);
       }
 
-      function showDashboard(name, email, address) {
+      function showDashboard(name, email, address, ref) {
         if (dashName)       dashName.textContent       = name + '.';
         if (dashEmail)      dashEmail.textContent      = email;
         if (dashOrderName)  dashOrderName.textContent  = name;
         if (dashOrderEmail) dashOrderEmail.textContent = email;
         if (dashOrderAddr)  dashOrderAddr.textContent  = address || '—';
+        if (document.getElementById('downloadPdfBtn') && ref) {
+            document.getElementById('downloadPdfBtn').href = '/api/download?reference=' + ref;
+        }
+        
         dash.classList.add('active');
         document.querySelectorAll('#navBuyBtn, #heroBuyBtn, #buyBtn').forEach(b => b.style.display = 'none');
         setTimeout(() => dash.scrollIntoView({ behavior: 'smooth' }), 200);
@@ -1013,7 +1090,7 @@
         const saved = localStorage.getItem('bepoten_user');
         if (saved) {
           const u = JSON.parse(saved);
-          if (u.email) showDashboard(u.name || 'Reader', u.email, u.address || '');
+          if (u.email) showDashboard(u.name || 'Reader', u.email, u.address || '', u.ref);
         }
       } catch(e) {}
 

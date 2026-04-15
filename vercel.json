@@ -40,6 +40,11 @@
       ]
     }
   ],
+  "functions": {
+    "api/download.js": {
+      "includeFiles": "beyond-potential.pdf"
+    }
+  },
   "rewrites": [
     {
       "source": "/beyond-potential.pdf",
